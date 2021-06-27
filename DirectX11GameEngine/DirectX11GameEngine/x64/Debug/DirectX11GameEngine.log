@@ -1,0 +1,21 @@
+﻿  AppWindow.cpp
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(82,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(83,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(84,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(85,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(175,139): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(221,30): warning C4244: '=': conversion from 'DWORD' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(279,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(279,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  GraphicsEngine.cpp
+  Resource.cpp
+  ResourceManager.cpp
+  Texture.cpp
+  TextureManager.cpp
+  main.cpp
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(82,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(83,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(84,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(85,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  DirectX11GameEngine.vcxproj -> C:\_repo\DirectX11GameEngine\DirectX11GameEngine\x64\Debug\DirectX11GameEngine.exe
