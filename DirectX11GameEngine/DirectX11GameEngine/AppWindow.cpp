@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include "AppWindow.h"
+#include "Vector2D.h"
 #include "Vector3D.h"
 #include "Matrix4x4.h"
 #include "InputSystem.h"
@@ -7,8 +8,7 @@
 struct vertex
 {
 	Vector3D position;
-	Vector3D color;
-	Vector3D color1;
+	Vector2D texcoord;
 };
 
 __declspec(align(16))
@@ -109,7 +109,7 @@ void AppWindow::onCreate()
 	InputSystem::get()->addListener(this);
 	InputSystem::get()->showCursor(false);
 
-	TexturePtr m_wood_tex =
+	m_wood_tex =
 		GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\wood.jpg");
 
 	RECT rc = this->getClientWindowRect();
@@ -119,20 +119,67 @@ void AppWindow::onCreate()
 
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
-	vertex vertex_list[] =
+	Vector3D position_list[] =
 	{
 		//X - Y - Z
 		// FRONT FACE
-		{Vector3D(-0.5f, -0.5f, -0.5f), Vector3D(1, 0, 0),	Vector3D(0.2f,    0,    0)}, // POS 0
-		{Vector3D(-0.5f,  0.5f, -0.5f), Vector3D(1, 1, 0),	Vector3D(0.2f, 0.2f,    1)}, // POS 1
-		{Vector3D(0.5f,  0.5f, -0.5f), Vector3D(1, 1, 0),	Vector3D(0.2f, 0.2f,    0)}, // POS 2
-		{Vector3D(0.5f, -0.5f, -0.5f), Vector3D(1, 0, 0),	Vector3D(0,    0,    1)}, // POS 3
+		{Vector3D(-0.5f, -0.5f, -0.5f)}, // POS 0
+		{Vector3D(-0.5f,  0.5f, -0.5f)}, // POS 1
+		{Vector3D( 0.5f,  0.5f, -0.5f)}, // POS 2
+		{Vector3D( 0.5f, -0.5f, -0.5f)}, // POS 3
 
 		// BACK FACE
-		{Vector3D(0.5f, -0.5f,  0.5f), Vector3D(0, 1, 0),	Vector3D(0, 0.2f,    0)}, // POS 4
-		{Vector3D(0.5f,  0.5f,  0.5f), Vector3D(0, 1, 1),	Vector3D(0, 0.2f, 0.2f)}, // POS 5
-		{Vector3D(-0.5f,  0.5f,  0.5f), Vector3D(0, 1, 1),	Vector3D(0, 0.2f, 0.2f)}, // POS 6
-		{Vector3D(-0.5f, -0.5f,  0.5f), Vector3D(0, 1, 0),	Vector3D(0, 0.2f,    0)}, // POS 7
+		{Vector3D( 0.5f, -0.5f,  0.5f)}, // POS 4
+		{Vector3D( 0.5f,  0.5f,  0.5f)}, // POS 5
+		{Vector3D(-0.5f,  0.5f,  0.5f)}, // POS 6
+		{Vector3D(-0.5f, -0.5f,  0.5f)}  // POS 7
+	};
+
+	Vector2D texcoord_list[] =
+	{
+		{Vector2D(0.0f, 0.0f)}, // POS 0
+		{Vector2D(0.0f, 1.0f)}, // POS 1
+		{Vector2D(1.0f, 0.0f)}, // POS 2
+		{Vector2D(1.0f, 1.0f)}, // POS 3
+	};
+
+	vertex vertex_list[] =
+	{
+		// FRONT SIDE
+		{position_list[0], texcoord_list[1]},
+		{position_list[1], texcoord_list[0]},
+		{position_list[2], texcoord_list[2]},
+		{position_list[3], texcoord_list[3]},
+
+		// BACK SIDE
+		{position_list[4], texcoord_list[1]},
+		{position_list[5], texcoord_list[0]},
+		{position_list[6], texcoord_list[2]},
+		{position_list[7], texcoord_list[3]},
+
+		// TOP SIDE
+		{position_list[1], texcoord_list[1]},
+		{position_list[6], texcoord_list[0]},
+		{position_list[5], texcoord_list[2]},
+		{position_list[2], texcoord_list[3]},
+
+		// BOTTOM SIDE
+		{position_list[7], texcoord_list[1]},
+		{position_list[0], texcoord_list[0]},
+		{position_list[3], texcoord_list[2]},
+		{position_list[4], texcoord_list[3]},
+
+		// RIGHT SIDE
+		{position_list[3], texcoord_list[1]},
+		{position_list[2], texcoord_list[0]},
+		{position_list[5], texcoord_list[2]},
+		{position_list[4], texcoord_list[3]},
+
+		// LEFT SIDE
+		{position_list[7], texcoord_list[1]},
+		{position_list[6], texcoord_list[0]},
+		{position_list[1], texcoord_list[2]},
+		{position_list[0], texcoord_list[3]}
 	};
 
 	UINT size_list = ARRAYSIZE(vertex_list);
@@ -140,28 +187,28 @@ void AppWindow::onCreate()
 	unsigned int index_list[] =
 	{
 		// FONT SIDE
-		0, 1, 2,	// First Triangle
-		2, 3, 0,	// Second Triangle
+		 0,  1,  2,	// First Triangle
+		 2,  3,  0,	// Second Triangle
 
 		// BACK SIDE
-		4, 5, 6,	// First Triangle
-		6, 7, 4,	// Second Triangle
+		 4,  5,  6,	// First Triangle
+		 6,  7,  4,	// Second Triangle
 
 		// TOP SIDE
-		1, 6, 5,	// First Triangle
-		5, 2, 1,	// Second Triangle
+		 8,  9, 10,	// First Triangle
+		10, 11,  8,	// Second Triangle
 
 		// BOTTOM SIDE
-		7, 0, 3,	// First Triangle
-		3, 4, 7,	// Second Triangle
+		12, 13, 14,	// First Triangle
+		14, 15, 12,	// Second Triangle
 
 		// RIGHT SIE
-		3, 2, 5,	// First Triangle
-		5, 4, 3,	// Second Triangle
+		16, 17, 18,	// First Triangle
+		18, 19, 16,	// Second Triangle
 
 		// LEFT SIDE
-		7, 6, 1,	// First Triangle
-		1, 0, 7		// Second Triangle
+		20, 21, 22,	// First Triangle
+		22, 23, 20	// Second Triangle
 	};
 
 	UINT size_index_list = ARRAYSIZE(index_list);
@@ -206,6 +253,8 @@ void AppWindow::onUpdate()
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
+
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, m_wood_tex);
 
 	//SET THE VERTICES OF THE TRIANGLE TO DRAW
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);

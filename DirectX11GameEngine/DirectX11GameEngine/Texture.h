@@ -9,5 +9,8 @@ public:
 	~Texture();
 private:
 	ID3D11Resource* m_texture = nullptr;
+	ID3D11ShaderResourceView* m_shader_res_view = nullptr;
+private:
+	friend class DeviceContext;
 };
 
