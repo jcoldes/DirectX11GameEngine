@@ -1,2 +1,5 @@
-﻿  Window.cpp
+﻿  AppWindow.cpp
+  Window.cpp
+  main.cpp
+  Generating Code...
   DirectX11GameEngine.vcxproj -> C:\_repo\DirectX11GameEngine\DirectX11GameEngine\Debug\DirectX11GameEngine.exe
