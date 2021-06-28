@@ -4,6 +4,7 @@
 #include "Vector3D.h"
 #include "Matrix4x4.h"
 #include "InputSystem.h"
+#include "Mesh.h"
 
 struct vertex
 {
@@ -110,7 +111,8 @@ void AppWindow::onCreate()
 	InputSystem::get()->showCursor(false);
 
 	m_wood_tex =
-		GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\wood.jpg");
+		GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\brick.png");
+	m_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Assets\\Meshes\\teapot.obj");
 
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain =
@@ -257,13 +259,13 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, m_wood_tex);
 
 	//SET THE VERTICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_mesh->getVertexBuffer());
 
 	//SET THE INDICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_mesh->getIndexBuffer());
 
 	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_mesh->getIndexBuffer()->getSizeIndexList(), 0, 0);
 	m_swap_chain->present(true);
 
 	m_old_delta = m_new_delta;

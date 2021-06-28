@@ -1,9 +1,2 @@
-﻿  DeviceContext.cpp
-  main.cpp
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(82,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(83,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(84,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(85,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  RenderSystem.cpp
-  Generating Code...
+﻿  SwapChain.cpp
   DirectX11GameEngine.vcxproj -> C:\_repo\DirectX11GameEngine\DirectX11GameEngine\x64\Debug\DirectX11GameEngine.exe
