@@ -1,1 +1,3 @@
-﻿  DirectX11GameEngine.vcxproj -> C:\_repo\DirectX11GameEngine\DirectX11GameEngine\x64\Debug\DirectX11GameEngine.exe
+﻿  Texture.cpp
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Texture.cpp(18,64): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+  DirectX11GameEngine.vcxproj -> C:\_repo\DirectX11GameEngine\DirectX11GameEngine\x64\Debug\DirectX11GameEngine.exe
