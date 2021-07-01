@@ -31,6 +31,34 @@ AppWindow::~AppWindow()
 {
 }
 
+void AppWindow::render()
+{
+	//CLEAR THE RENDER TARGET 
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
+		0, 0.3f, 0.4f, 1);
+	//SET VIEWPORT OF RENDER TARGET IN WHICH WE HAVE TO DRAW
+	RECT rc = this->getClientWindowRect();
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewPortSize(rc.right - rc.left, rc.bottom - rc.top);
+
+	// COMPUTE TRANSFORM MATRICES
+	update();
+
+	// RENDER MODEL
+	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(false);
+	drawMesh(m_mesh, m_vs, m_ps, m_cb, m_wood_tex);
+
+	// RENDER SKYBOX/SPHERE
+	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(true);
+	drawMesh(m_sky_mesh, m_vs, m_sky_ps, m_sky_cb, m_sky_tex);
+
+	m_swap_chain->present(true);
+
+	m_old_delta = m_new_delta;
+	m_new_delta = ::GetTickCount();
+
+	m_delta_time = (m_old_delta) ? (m_new_delta - m_old_delta) / 1000.0f : 0;
+}
+
 void AppWindow::update()
 {
 	updateCamera();
@@ -124,6 +152,8 @@ void AppWindow::onCreate()
 	Window::onCreate();
 
 	InputSystem::get()->addListener(this);
+
+	m_play_state = true;
 	InputSystem::get()->showCursor(false);
 
 	m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\brick.png");
@@ -260,38 +290,14 @@ void AppWindow::onCreate()
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
-
 	InputSystem::get()->update();
-
-	//CLEAR THE RENDER TARGET 
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
-		0, 0.3f, 0.4f, 1);
-	//SET VIEWPORT OF RENDER TARGET IN WHICH WE HAVE TO DRAW
-	RECT rc = this->getClientWindowRect();
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewPortSize(rc.right - rc.left, rc.bottom - rc.top);
-
-	// COMPUTE TRANSFORM MATRICES
-	update();
-
-	// RENDER MODEL
-	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(false);
-	drawMesh(m_mesh, m_vs, m_ps, m_cb, m_wood_tex);
-
-	// RENDER SKYBOX/SPHERE
-	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(true);
-	drawMesh(m_sky_mesh, m_vs, m_sky_ps, m_sky_cb, m_sky_tex);
-
-	m_swap_chain->present(true);
-
-	m_old_delta = m_new_delta;
-	m_new_delta = ::GetTickCount();
-
-	m_delta_time = (m_old_delta) ? (m_new_delta - m_old_delta) / 1000.0f : 0;
+	this->render();
 }
 
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
+	m_swap_chain->setFullScreen(false, 1, 1);
 }
 
 void AppWindow::onFocus()
@@ -304,45 +310,54 @@ void AppWindow::onKillFocus()
 	InputSystem::get()->removeListener(this);
 }
 
+void AppWindow::onSize()
+{
+	RECT rc = this->getClientWindowRect();
+	m_swap_chain->resize(rc.right, rc.bottom);
+	this->render();
+}
+
 void AppWindow::onKeyDown(int key)
 {
-	if (key == 'W')
-	{
-		//m_rot_x += 3.14f * m_delta_time;
-		m_forward = 1.0f;
-	}
-	else if (key == 'S')
-	{
-		//m_rot_x -= 3.14f * m_delta_time;
-		m_forward = -1.0f;
-	}
-	else if (key == 'A')
-	{
-		//m_rot_y += 3.14f * m_delta_time;
-		m_rightward = -1.0f;
-	}
-	else if (key == 'D')
-	{
-		//m_rot_y -= 3.14f * m_delta_time;
-		m_rightward = 1.0f;
-	}
+	if (key == 'W')			m_forward = 1.0f;
+	else if (key == 'S')	m_forward = -1.0f;
+	else if (key == 'A')	m_rightward = -1.0f;
+	else if (key == 'D')	m_rightward = 1.0f;
 }
 
 void AppWindow::onKeyUp(int key)
 {
 	m_forward = 0.0f;
 	m_rightward = 0.0f;
+
+	if (key == 'G')
+	{
+		m_play_state = (m_play_state) ? false : true;
+		InputSystem::get()->showCursor(!m_play_state);
+	}
+	else if (key == 'F')
+	{
+		m_fullscreen_state = (m_fullscreen_state) ? false : true;
+		RECT size_screen = this->getScreenSize();
+		m_swap_chain->setFullScreen(m_fullscreen_state, size_screen.right, size_screen.bottom);
+	}
 }
 
 void AppWindow::onMouseMove(const Point& mouse_pos)
 {
-	int width = this->getClientWindowRect().right - this->getClientWindowRect().left;
-	int height = this->getClientWindowRect().bottom - this->getClientWindowRect().top;
+	if (m_play_state)
+	{
+		int width = this->getClientWindowRect().right - this->getClientWindowRect().left;
+		int height = this->getClientWindowRect().bottom - this->getClientWindowRect().top;
 
-	m_rot_x += (mouse_pos.m_y - (height / 2.0f)) * m_delta_time * 0.1f;
-	m_rot_y += (mouse_pos.m_x - (width / 2.0f)) * m_delta_time * 0.1f;
+		m_rot_x += (mouse_pos.m_y - (height / 2.0f)) * m_delta_time * 0.1f;
+		m_rot_y += (mouse_pos.m_x - (width / 2.0f)) * m_delta_time * 0.1f;
 
-	InputSystem::get()->setCursorPosition(Point(width / 2.0f, height / 2.0f));
+		InputSystem::get()->setCursorPosition(Point(width / 2.0f, height / 2.0f));
+	}
+	else {
+		return;
+	}
 }
 
 void AppWindow::onLeftMouseDown(const Point& delta_mouse_pos)
