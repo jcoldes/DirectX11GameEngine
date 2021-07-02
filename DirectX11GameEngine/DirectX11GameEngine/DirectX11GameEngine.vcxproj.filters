@@ -52,6 +52,15 @@
     <Filter Include="GameEngine\GraphicsEngine\ResourceManager\MeshManager">
       <UniqueIdentifier>{dd794ed5-b809-4455-9e8f-b5fdca665311}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Shaders">
+      <UniqueIdentifier>{a148fc90-eada-4d46-b2a6-f962a9e26693}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Shaders\PointLightShader">
+      <UniqueIdentifier>{2188ed4e-726d-4451-b0ac-046df08cb360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Shaders\EarthShader">
+      <UniqueIdentifier>{df894102-5571-42b0-8c8c-de2babbe5a71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppWindow.cpp">
@@ -193,17 +202,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
-      <Filter>App</Filter>
-    </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
-      <Filter>App</Filter>
+    <FxCompile Include="SkyBoxShader.hlsl">
+      <Filter>App\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="VertexMeshLayoutShader.hlsl">
-      <Filter>App</Filter>
+      <Filter>App\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="SkyBoxShader.hlsl">
-      <Filter>App</Filter>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>App\Shaders\EarthShader</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>App\Shaders\EarthShader</Filter>
+    </FxCompile>
+    <FxCompile Include="PointLightVertexShader.hlsl">
+      <Filter>App\Shaders\PointLightShader</Filter>
+    </FxCompile>
+    <FxCompile Include="PointLightPixelShader.hlsl">
+      <Filter>App\Shaders\PointLightShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
