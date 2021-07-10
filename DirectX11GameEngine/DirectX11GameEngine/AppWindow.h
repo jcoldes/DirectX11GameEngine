@@ -39,11 +39,11 @@ public:
 public:
 	void render();
 	void update();
-	void updateModel(Vector3D position, const MaterialPtr& material);
+	void updateModel(Vector3D position, const std::vector<MaterialPtr>& list_materials);
 	void updateCamera();
 	void updateSkyBox();
 	void updateLight();
-	void drawMesh(const MeshPtr& mesh, const MaterialPtr& material);
+	void drawMesh(const MeshPtr& mesh, const std::vector<MaterialPtr>& list_materials);
 private:
 	SwapChainPtr m_swap_chain;
 	VertexBufferPtr m_vb;
@@ -96,6 +96,8 @@ private:
 	float m_light_radius = 4.0f;
 	bool m_play_state = false;
 	bool m_fullscreen_state = false;
+
+	std::vector<MaterialPtr> m_list_materials;
 
 	Vector4D m_light_position;
 };

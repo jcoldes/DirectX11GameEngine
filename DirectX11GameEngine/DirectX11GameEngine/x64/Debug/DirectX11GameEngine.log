@@ -3,10 +3,9 @@ C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h
 C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(83,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(84,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\Matrix4x4.h(85,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(52,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(55,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(58,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(71,30): warning C4244: '=': conversion from 'DWORD' to 'float', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(284,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(284,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(74,30): warning C4244: '=': conversion from 'DWORD' to 'float', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(174,45): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(178,133): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(298,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\_repo\DirectX11GameEngine\DirectX11GameEngine\DirectX11GameEngine\AppWindow.cpp(298,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   DirectX11GameEngine.vcxproj -> C:\_repo\DirectX11GameEngine\DirectX11GameEngine\x64\Debug\DirectX11GameEngine.exe
